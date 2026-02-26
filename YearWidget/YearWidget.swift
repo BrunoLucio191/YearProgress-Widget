@@ -25,7 +25,7 @@ struct Provider: AppIntentTimelineProvider {
 
     func snapshot(for configuration: YearWidgetConfigurationIntent, in context: Context) async -> SimpleEntry {
         let config = configuration
-        config.showDayInfo = true // Para preview
+        config.showDayInfo = true
         return SimpleEntry(date: Date(), configuration: config)
     }
 
@@ -33,7 +33,7 @@ struct Provider: AppIntentTimelineProvider {
         let currentDate = Date()
         let nextMidnight = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!)
         
-        // CORREÇÃO: Passa a data com todas as propriedades calculadas
+       
         let entry = SimpleEntry(date: currentDate, configuration: configuration)
         
         return Timeline(entries: [entry], policy: .after(nextMidnight))
@@ -53,14 +53,13 @@ struct YearProgressWidgetEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
     
-    // --- MARGENS E LAYOUT ---
+    // Margins
     private let largePaddingWithInfo = EdgeInsets(top: 43, leading: 32, bottom: 12, trailing: 16)
     private let largePaddingWithoutInfo = EdgeInsets(top: 26, leading: 24, bottom: 24, trailing: 24)
     
     private let largeLayoutWithInfo = GridLayoutConfig(columns: 22, spacing: 8, dotSize: 4.9)
     private let largeLayoutNoInfo = GridLayoutConfig(columns: 20, spacing: 8, dotSize: 7)
     
-    // Configuração Condicional (iOS vs Mac)
     private var mediumLayoutWithInfo: GridLayoutConfig {
         #if os(iOS)
         return GridLayoutConfig(columns: 27, spacing: 3, dotSize: 5)
@@ -155,7 +154,6 @@ struct YearProgressWidgetEntryView: View {
         let currentDate: Date
         
         var body: some View {
-            // Uso da Extension aqui (muito mais limpo)
             VStack(alignment: .leading, spacing: -4) {
                 Text("\(currentDate.dayComponent)")
                     .font(.system(size: 41, weight: .bold))
@@ -270,8 +268,6 @@ struct DayInfoPanel: View {
             if style == .medium {
                 Text("\(currentDate.dayOfYear)")
                     .font(.system(size: 42, weight: .bold))
-
-                Divider().opacity(0.4)
 
                 Text("Passed")
                     .font(.caption).opacity(0.7)
