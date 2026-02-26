@@ -2,14 +2,14 @@ import WidgetKit
 import SwiftUI
 import AppIntents
 
-// MARK: - Configuração de Layout
+// MARK: - Layout settings
 struct GridLayoutConfig {
     let columns: Int
     let spacing: CGFloat
     let dotSize: CGFloat
 }
 
-// MARK: - Configuração do Widget (App Intent)
+// MARK: - settinfs of the  Widget (App Intent)
 struct YearWidgetConfigurationIntent: AppIntent, WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Widget Setting"
     static var description = IntentDescription("Customize the widget layout")
@@ -155,20 +155,20 @@ struct YearProgressWidgetEntryView: View {
         
         var body: some View {
             VStack(alignment: .leading, spacing: -4) {
-                Text("\(currentDate.dayComponent)")
+                Text("\(currentDate.dayOfYear)")
                     .font(.system(size: 41, weight: .bold))
                 
                 Text("Passed")
                     .font(.caption).opacity(0.7)
                 
-                Text("\(currentDate.dayOfYear)")
+                Text("\(currentDate.daysRemaining)")
                     .font(.system(size: 22, weight: .bold))
                     .padding(.top, 4)
                 
                 Text("Left")
                     .font(.caption).opacity(0.7)
             }
-            .padding(EdgeInsets(top: 23, leading: 16, bottom: 16, trailing: 16))
+            .padding(EdgeInsets(top: 23, leading: 16, bottom: 13, trailing: 16))
         }
     }
 }
@@ -268,6 +268,8 @@ struct DayInfoPanel: View {
             if style == .medium {
                 Text("\(currentDate.dayOfYear)")
                     .font(.system(size: 42, weight: .bold))
+
+                Divider().opacity(0)
 
                 Text("Passed")
                     .font(.caption).opacity(0.7)
